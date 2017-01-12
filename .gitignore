@@ -1,0 +1,12 @@
+*.pyc
+__pycache__/
+.vscode
+.sass-cache/
+*.css.map
+.DS_Store
+
+migrations/
+venv3/
+postman/
+
+.idea/
