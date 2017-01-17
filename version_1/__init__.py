@@ -4,6 +4,7 @@ from flask import Blueprint, abort, jsonify
 from version_1.resources.dog import DogList, DogUpdate
 from version_1.resources.role import RoleList, RoleUpdate
 from version_1.resources.user import UserList, UserUpdate
+from version_1.resources.profile import ProfileList, ProfileUpdate
 
 # Declare the blueprint
 v1 = Blueprint('v1', __name__)
@@ -23,6 +24,10 @@ def show():
 #############################################
 ########## Resources to Add
 #############################################
+
+# Profiles
+api.add_resource(ProfileList, '/profiles')
+api.add_resource(ProfileUpdate, '/profile/<int:id>')
 
 # Dogs
 api.add_resource(DogList, '/dogs')

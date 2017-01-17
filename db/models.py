@@ -95,6 +95,7 @@ class User(db.Model, UserMixin):
 
     roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
     dogs  = db.relationship('Dog', backref="owner")
+    profile = db.relationship('Profile', backref='user')
 
     # http://docs.sqlalchemy.org/en/rel_1_0/orm/mapped_attributes.html#simple-validators
     @validates('email')
@@ -134,6 +135,11 @@ class UserSchema(Schema):
                                 schema='DogSchema',
                                 # related_url='/dogs/{dog_id}',
                                 # related_url_kwargs={'dog_id': '<dog.id>'}
+    )
+    profile = fields.Relationship(many=True,
+                                  include_resource_linkage=True,
+                                  type_='profile',
+                                  schema='ProfileSchema',
     )
 
     # Self links
@@ -193,35 +199,41 @@ class DogSchema(Schema):
         type_ = 'dog'
 
 
-# class Profile(db.Model, CRUD):
-#     __tablename__ = 'profile'
-#
-#     id = db.Column(db.Integer, primary_key=True)
-#     bio = db.Column(db.Text)
-#     website = db.Column(db.String(255))
-#     company = db.Column(db.String(255))
-#     location = db.Column(db.String(255))
-#     date_created = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp(), nullable=False)
-#     last_modified = db.Column(db.TIMESTAMP, nullable=False)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-#
-#     def __repr__(self):
-#         return '<models.Profile[user_id=%s]>' % self.user_id
-#
-# class ProfileSchema(Schema):
-#
-#     id = fields.Integer(dump_only=True)
-#     bio = fields.String()
-#     website = fields.String()
-#     company = fields.String()
-#     location = fields.String()
-#     date_created = fields.DateTime(dump_only=True)
-#     last_modified = fields.DateTime(dump_only=True)
-#
-#     user = fields.Relationship(related_url='/users/{user_id}',
-#                                 related_url_kwargs={'user_id': '<user_id>'},
-#                                 many=False,
-#                                 include_resource_linkage=True,
-#                                 type_='user',
-#                                 schema='UserSchema'
-#     )
+class Profile(db.Model, CRUD):
+    __tablename__ = 'profile'
+
+    id = db.Column(db.Integer, primary_key=True)
+    bio = db.Column(db.Text)
+    website = db.Column(db.String(255))
+    company = db.Column(db.String(255))
+    location = db.Column(db.String(255))
+    date_created = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp(), nullable=False)
+    last_modified = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp(), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True)
+
+    def __init__(self, user_id):
+        self.user_id = user_id
+
+    def __repr__(self):
+        return '<models.Profile[user_id=%s]>' % self.user_id
+
+class ProfileSchema(Schema):
+
+    id = fields.Integer(dump_only=True)
+    bio = fields.String()
+    website = fields.String()
+    company = fields.String()
+    location = fields.String()
+    date_created = fields.DateTime(dump_only=True)
+    last_modified = fields.DateTime(dump_only=True)
+
+    user = fields.Relationship(related_url='/users/{user_id}',
+                               related_url_kwargs={'user_id': '<user_id>'},
+                               many=False,
+                               include_resource_linkage=True,
+                               type_='user',
+                               schema='UserSchema'
+    )
+
+    class Meta:
+        type_ = 'profile'
