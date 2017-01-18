@@ -12,6 +12,7 @@ schema = ProfileSchema(include_data=('user',))
 
 class ProfileList(Resource):
 
+    @jwt_required()
     def get(self):
         '''
         http://jsonapi.org/format/#fetching
