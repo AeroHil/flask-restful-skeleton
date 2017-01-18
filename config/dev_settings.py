@@ -16,7 +16,7 @@ from datetime import timedelta
 #############################################
 
 # Flask Core Settings
-APP_NAME   = "DogTracker"
+APP_NAME   = "Backend API - Dev"
 DEBUG      = True
 HOST       = 'localhost'
 PORT       = 5001

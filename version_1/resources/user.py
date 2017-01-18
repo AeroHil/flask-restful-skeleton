@@ -1,4 +1,3 @@
-import json
 from flask_restful import Resource
 from marshmallow import ValidationError
 from sqlalchemy.exc import SQLAlchemyError

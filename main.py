@@ -12,7 +12,7 @@ from version_1 import v1
 from flask_jwt import JWT
 from flask_mail import Mail
 from authentication import *
-from db.models import User, Dog
+from db.models import User, Profile
 from flask_security import Security
 from flask_security.utils import encrypt_password
 
@@ -93,18 +93,20 @@ def create_test_models():
     # Save changes
     db.session.commit()
 
-    # Create a couple of dogs and tie them to owners
-    dog       = Dog('Labrador')
-    dog.owner = user2
-    dog.add(dog)
+    # Create temporary profiles for users
+    profile = Profile(user1.id)
+    profile.bio = "I am Test User #1"
+    profile.website = "http://example.com/user/1"
+    profile.company = "ABC Inc."
+    profile.location = "United States"
+    profile.add(profile)
 
-    dog       = Dog('Great Dane')
-    dog.owner = user2
-    dog.add(dog)
-
-    dog       = Dog('Husky')
-    dog.owner = user3
-    dog.add(dog)
+    profile = Profile(user2.id)
+    profile.bio = "I am Test User #2"
+    profile.website = "http://example.com/user/2"
+    profile.company = "DEF Corp."
+    profile.location = "Canada"
+    profile.add(profile)
 
 @app.before_first_request
 def bootstrap_app():

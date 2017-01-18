@@ -1,7 +1,6 @@
 from flask_cors import CORS
 from flask_restful import Api
-from flask import Blueprint, abort, jsonify
-from version_1.resources.dog import DogList, DogUpdate
+from flask import Blueprint
 from version_1.resources.role import RoleList, RoleUpdate
 from version_1.resources.user import UserList, UserUpdate
 from version_1.resources.profile import ProfileList, ProfileUpdate
@@ -28,10 +27,6 @@ def show():
 # Profiles
 api.add_resource(ProfileList, '/profiles')
 api.add_resource(ProfileUpdate, '/profile/<int:id>')
-
-# Dogs
-api.add_resource(DogList, '/dogs')
-api.add_resource(DogUpdate, '/dogs/<int:id>')
 
 # Users
 api.add_resource(UserList, '/users')
