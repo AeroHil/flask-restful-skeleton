@@ -5,7 +5,7 @@ Before you use the ```migrate.py``` functionality, you will need to set up the P
 ## Create PostgreSQL User
 ```bash
 # Create correct user for this project
-createuser -d -l -P dog_dev
+createuser -d -l -P dev_user
 ```
 
 ### Flags Explained
@@ -19,7 +19,7 @@ createuser -d -l -P dog_dev
 Run this from the terminal, not from the ```psql``` prompt:
 
 ```bash
-createdb -O dog_dev -U dog_dev dog_dev_db
+createdb -O dev_user -U dev_user dev_db
 ```
 
 ### Flags Explained
@@ -36,5 +36,5 @@ In the process of setting up an application, testing models, and moving forward,
 Run this command from your terminal, not the ```psql``` prompt:
 
 ```bash
-dropdb -U dog_dev dog_dev_db
+dropdb -U dev_user dev_db
 ```
