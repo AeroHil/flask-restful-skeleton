@@ -101,10 +101,10 @@ Authorization : JWT AUTH_TOKEN
 ```
 
 **Note**: Again, you can change the "JWT" value in the Auth header in the config file. We just chose not to in order to not conflict with OAuth2 Bearer tokens (as per the JWT documentation).
-**Note 1**: Make sure the string 'JWT' precedes the actual auth token in the value field of the header
+**Note2**: Make sure the string 'JWT' precedes the actual auth token in the value field of the header
 
 ## Users - Setup
 
-You'll notice that there are several lines of code under the "Bootstrap Several Users" section in ```main.py```. These users will be created if there are no users in the database, once you run the server, and hit an endpoint. I recommend using [Postman](https://www.getpostman.com/) to hit the endpoint ```localhost:5000/api/v1/dogs``` to get these users started.
+You'll notice that there are several lines of code under the "Bootstrap Several Users" section in ```main.py```. These users will be created if there are no users in the database, once you run the server, and hit an endpoint. I recommend using [Postman](https://www.getpostman.com/) to hit the endpoint ```localhost:5000/api/v1/auth``` to get the test data started.
 
 **Note:** Make sure that once you're aware of this code, make sure to remove them for a production-level application!
